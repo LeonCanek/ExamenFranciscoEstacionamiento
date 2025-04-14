@@ -1,0 +1,7 @@
+Núm. placa	Tiempo estacionado (min.)	Cantidad a pagar
+RESIDENTE457	153	7.65
+Residente2025	154	7.70
+Residente2026	3	0.15
+Residente2027	150	7.50
+Residente2028	143	7.15
+Resi2000	0	0.00

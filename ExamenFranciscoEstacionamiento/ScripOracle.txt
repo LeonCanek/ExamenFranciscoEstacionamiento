@@ -1,0 +1,74 @@
+
+CREATE TABLE Vehiculo (
+    placa VARCHAR2(20) PRIMARY KEY,
+    tipo_vehiculo VARCHAR2(20) NOT NULL
+);
+
+INSERT INTO Vehiculo (placa, tipo_vehiculo) 
+VALUES ('OFICIAL123', 'OFICIAL');
+
+INSERT INTO Vehiculo (placa, tipo_vehiculo) 
+VALUES ('RESIDENTE457', 'RESIDENTE');
+
+INSERT INTO Vehiculo (placa, tipo_vehiculo) 
+VALUES ('NORESIDENTE789', 'NO_RESIDENTE');
+
+COMMIT: 
+SELECT * FROM Vehiculo
+
+COMMIT;
+
+CREATE TABLE Estancia (
+    id NUMBER PRIMARY KEY,
+    hora_entrada TIMESTAMP NOT NULL,
+    hora_salida TIMESTAMP,
+    vehiculo_placa VARCHAR2(20) NOT NULL,
+    FOREIGN KEY (vehiculo_placa) REFERENCES Vehiculo(placa)
+);
+
+INSERT INTO Estancia (id, hora_entrada, vehiculo_placa)
+VALUES (1, SYSTIMESTAMP, 'OFICIAL123');
+COMMIT;
+
+CREATE TABLE VehiculoOficial (
+    placa VARCHAR2(20) PRIMARY KEY,
+    CONSTRAINT fk_vehiculo_oficial FOREIGN KEY (placa) REFERENCES Vehiculo(placa)
+);
+
+INSERT INTO VehiculoOficial (placa) 
+VALUES ('OFICIAL123');
+COMMIT;
+
+CREATE TABLE VehiculoResidente (
+    placa VARCHAR2(20) PRIMARY KEY,
+    minutos_acumulados NUMBER DEFAULT 0,
+    CONSTRAINT fk_vehiculo_residente FOREIGN KEY (placa) REFERENCES Vehiculo(placa)
+);
+
+INSERT INTO VehiculoResidente (placa, minutos_acumulados) 
+VALUES ('RESIDENTE457', 30);
+COMMIT;
+
+CREATE TABLE VehiculoNoResidente (
+    placa VARCHAR2(20) PRIMARY KEY,
+    CONSTRAINT fk_vehiculo_no_residente FOREIGN KEY (placa) REFERENCES Vehiculo(placa)
+);
+
+INSERT INTO VehiculoNoResidente (placa) 
+VALUES ('NORESIDENTE789');
+COMMIT;
+
+
+SELECT * FROM Vehiculo;
+SELECT * FROM Estancia;
+SELECT * FROM VehiculoOficial;
+SELECT * FROM VehiculoResidente;
+SELECT * FROM VehiculoNoResidente;
+
+drop sequence estancia_seq
+
+CREATE SEQUENCE estancia_seq
+START WITH 5
+INCREMENT BY 1
+NOCACHE
+NOCYCLE;
